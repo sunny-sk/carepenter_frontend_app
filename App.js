@@ -1,15 +1,15 @@
 import React from 'react';
 import {StatusBar, Text} from 'react-native';
 
-import Colors from './constants/Colors';
+import Colors from './app/constants/Colors';
 
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {enableScreens} from 'react-native-screens';
 import {NavigationContainer} from '@react-navigation/native';
 
-import WelcomeStackScreens from './navigation/StackScreen';
+import WelcomeStackScreens from './app/navigation/StackScreen';
 
-import DrawerNavigator from './navigation/DrawerNavigator';
+import DrawerNavigator from './app/navigation/DrawerNavigator';
 
 enableScreens();
 const App = props => {

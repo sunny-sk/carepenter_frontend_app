@@ -65,7 +65,6 @@ const Walkthrough2 = props => {
               style={{
                 textAlign: 'right',
                 marginRight: '10%',
-                marginTop: '3%',
 
                 padding: 10,
                 backgroundColor: Colors.primary,
@@ -85,7 +84,6 @@ const styles = StyleSheet.create({
   circleContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: '50%',
   },
   circleStyle: {
     height: 10,

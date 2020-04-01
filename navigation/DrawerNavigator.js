@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image} from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
-
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -13,6 +13,7 @@ import {
   ProfileStackScreen,
   ContactScreenStack,
   mainStackScreen,
+  WelcomeStackScreens,
 } from '../navigation/StackScreen';
 
 const Drawer = createDrawerNavigator();
@@ -47,6 +48,19 @@ function CustomDrawerContent(props) {
 }
 
 function DrawerNavigator(props) {
+  const [welcome, setWelcome] = useState(true);
+  useEffect(params => {
+    const checkWelcome = async () => {
+      try {
+        const value = await AsyncStorage.getItem('welcome');
+        if (!null) {
+          setWelcome(false);
+        }
+      } catch (error) {}
+    };
+    checkWelcome();
+    console.log('in drawer navigator');
+  });
   return (
     <>
       <Drawer.Navigator
@@ -62,6 +76,26 @@ function DrawerNavigator(props) {
             fontSize: 15,
           },
         }}>
+        {welcome ? (
+          <Drawer.Screen
+            name="welcome" // routing name
+            component={WelcomeStackScreens}
+            options={{
+              title: 'welcome',
+              drawerIcon: props => {
+                return (
+                  <Text>
+                    <AntDesign
+                      name="home"
+                      size={23}
+                      color={props.focused ? '#7047a3' : 'black'}
+                    />
+                  </Text>
+                );
+              },
+            }}
+          />
+        ) : null}
         <Drawer.Screen
           name="main" // routing name
           component={mainStackScreen}

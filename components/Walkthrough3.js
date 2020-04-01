@@ -11,8 +11,13 @@ import {
 
 import Circle from './Circle';
 import Colors from '../constants/Colors';
-
+import AsyncStorage from '@react-native-community/async-storage';
 const Walkthrough3 = props => {
+  const moveNext = async () => {
+    await AsyncStorage.setItem('welcome', 'false');
+    props.navigation.navigate('main');
+  };
+
   return (
     <View style={{backgroundColor: Colors.primary, height: '100%'}}>
       <SafeAreaView>
@@ -56,7 +61,10 @@ const Walkthrough3 = props => {
           />
         </View>
         <View style={{alignItems: 'flex-end'}}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              moveNext();
+            }}>
             <Text
               style={{
                 textAlign: 'right',
@@ -81,7 +89,6 @@ const styles = StyleSheet.create({
   circleContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: '50%',
   },
   circleStyle: {
     height: 10,

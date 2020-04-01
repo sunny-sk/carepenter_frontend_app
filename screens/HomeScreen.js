@@ -10,10 +10,12 @@ import {
   Alert,
   Image,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import Colors from '../constants/Colors';
 import Entypo from 'react-native-vector-icons/Entypo';
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const HomeScreen = props => {
   const [products, setProducts] = useState([1, 2, 3, 4, 5, 6, 63]);
   const [isLoading, setIsLoading] = useState(true);
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   noDataContainerImage: {
-    height: '30%',
-    width: '100%',
+    height: windowWidth / 2,
+    width: windowWidth,
   },
 });

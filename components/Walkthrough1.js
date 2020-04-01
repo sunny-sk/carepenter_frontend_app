@@ -14,79 +14,84 @@ import Colors from '../constants/Colors';
 
 const Walthrough1 = props => {
   const moveToNext = () => {
+    console.log('clickd');
     props.navigation.navigate('Walkthrough2');
   };
   return (
-    <View style={{backgroundColor: Colors.primary, height: '100%'}}>
-      <SafeAreaView>
-        <View style={{alignItems: 'center', marginTop: '30%'}}>
+    <SafeAreaView>
+      <View style={{backgroundColor: Colors.primary, height: '100%'}}>
+        <View
+          style={{
+            alignItems: 'center',
+            height: '40%',
+            justifyContent: 'flex-end',
+          }}>
           <Image
             source={require('../assets/images/walkthrough1_fill.png')}
             style={{height: 150, width: 150}}
           />
         </View>
-
-        <Text
-          style={{
-            textAlign: 'center',
-            fontWeight: 'bold',
-            fontSize: 18,
-            marginTop: '15%',
-            color: '#fff',
-          }}>
-          Furniture
-        </Text>
-
-        <View style={{width: '80%', marginLeft: '10%', marginTop: '2%'}}>
-          <Text
-            style={{
-              textAlign: 'center',
-              fontSize: 14,
-              color: '#c6c6c6',
-            }}>
-            looking for best furniture service in your town dont’t worry we are
-            here looking for best furniture service in your town dont’t worry we
-            are here
-          </Text>
-        </View>
-        <View style={styles.circleContainer}>
-          <Circle
-            style={{
-              ...styles.circleStyle,
-              borderColor: '#fff',
-              backgroundColor: '#fff',
-            }}
-          />
-          <Circle style={styles.circleStyle} />
-          <Circle style={styles.circleStyle} />
-        </View>
-        <View style={{alignItems: 'flex-end'}}>
-          <TouchableOpacity onPress={moveToNext}>
+        <View style={{height: '60%'}}>
+          <View style={{width: '80%', marginLeft: '10%'}}>
             <Text
               style={{
-                textAlign: 'right',
-                marginRight: '10%',
-                marginTop: '3%',
-
-                padding: 10,
-                backgroundColor: Colors.primary,
-                borderRadius: 6,
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: 18,
+                marginTop: 20,
                 color: '#fff',
               }}>
-              Next
+              Furniture
             </Text>
-          </TouchableOpacity>
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 14,
+                color: '#c6c6c6',
+              }}>
+              looking for best furniture service in your town dont’t worry we
+              are here looking for best furniture service in your town dont’t
+              worry we are here
+            </Text>
+          </View>
+
+          <View style={styles.circleContainer}>
+            <Circle
+              style={{
+                ...styles.circleStyle,
+                borderColor: '#fff',
+                backgroundColor: '#fff',
+              }}
+            />
+            <Circle style={styles.circleStyle} />
+            <Circle style={styles.circleStyle} />
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <TouchableOpacity onPress={moveToNext}>
+              <Text
+                style={{
+                  textAlign: 'right',
+                  marginRight: '10%',
+                  backgroundColor: Colors.primary,
+                  borderRadius: 6,
+                  color: '#fff',
+                }}>
+                Next
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </SafeAreaView>
-    </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   circleContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
+    alignContent: 'center',
     justifyContent: 'center',
-    marginTop: '50%',
   },
   circleStyle: {
     height: 10,
