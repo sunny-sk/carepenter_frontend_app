@@ -48,19 +48,10 @@ function CustomDrawerContent(props) {
 }
 
 function DrawerNavigator(props) {
-  const [welcome, setWelcome] = useState(true);
   useEffect(params => {
-    const checkWelcome = async () => {
-      try {
-        const value = await AsyncStorage.getItem('welcome');
-        if (!null) {
-          setWelcome(false);
-        }
-      } catch (error) {}
-    };
-    checkWelcome();
     console.log('in drawer navigator');
-  });
+  }, []);
+
   return (
     <>
       <Drawer.Navigator
@@ -76,7 +67,7 @@ function DrawerNavigator(props) {
             fontSize: 15,
           },
         }}>
-        {welcome ? (
+        {/* {welcome ? (
           <Drawer.Screen
             name="welcome" // routing name
             component={WelcomeStackScreens}
@@ -95,7 +86,7 @@ function DrawerNavigator(props) {
               },
             }}
           />
-        ) : null}
+        ) : null} */}
         <Drawer.Screen
           name="main" // routing name
           component={mainStackScreen}

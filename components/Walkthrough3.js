@@ -12,10 +12,14 @@ import {
 import Circle from './Circle';
 import Colors from '../constants/Colors';
 import AsyncStorage from '@react-native-community/async-storage';
-const Walkthrough3 = props => {
+const Walkthrough3 = React.memo(function(props) {
   const moveNext = async () => {
-    await AsyncStorage.setItem('welcome', 'false');
-    props.navigation.navigate('main');
+    try {
+      await AsyncStorage.setItem('welcome', 'set');
+      console.log(props);
+      props.click();
+    } catch (error) {}
+    // props.navigation.navigate('main');
   };
 
   return (
@@ -83,7 +87,7 @@ const Walkthrough3 = props => {
       </SafeAreaView>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   circleContainer: {

@@ -16,7 +16,10 @@ import CategoryTypeScreen from '../screens/CategoryTypeScreen';
 
 const stack = createStackNavigator();
 
-export function WelcomeStackScreens() {
+const YourComponent = props => <Walkthrough3 click={props.notify} {...props} />;
+
+export function WelcomeStackScreens(paasedProps) {
+  console.log('Zdf', paasedProps);
   return (
     <stack.Navigator
       keyboardHandlingEnabled={true}
@@ -34,7 +37,7 @@ export function WelcomeStackScreens() {
       />
       <stack.Screen
         name="Walkthrough3"
-        component={Walkthrough3}
+        component={YourComponent}
         options={{headerShown: false}}
       />
     </stack.Navigator>

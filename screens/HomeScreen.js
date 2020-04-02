@@ -12,6 +12,7 @@ import {
   ActivityIndicator,
   Dimensions,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import Colors from '../constants/Colors';
 import Entypo from 'react-native-vector-icons/Entypo';
 const windowWidth = Dimensions.get('window').width;
