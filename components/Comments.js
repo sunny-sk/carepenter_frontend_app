@@ -43,7 +43,7 @@ const Comments = props => {
                       width: 40,
                       borderRadius: 100,
                     }}
-                    source={require('../assets/images/no_user_profile1.png')}
+                    source={require('../assets/images/no_user_profile.png')}
                   />
                 </View>
                 <View

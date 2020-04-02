@@ -66,10 +66,10 @@ const DetailScreen = props => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Image
+            {/* <Image
               style={{height: 200, width: '100%'}}
               source={require('../assets/images/1.jpg')}
-            />
+            /> */}
           </View>
         </Modal>
       ) : null}
@@ -89,7 +89,7 @@ const DetailScreen = props => {
                     backgroundColor: '#f2f2f2',
                     borderRadius: 10,
                   }}>
-                  {url ? (
+                  {/* {url ? (
                     <Image
                       style={{
                         height: 150,
@@ -111,7 +111,7 @@ const DetailScreen = props => {
                       size="small"
                       color="black"
                     />
-                  )}
+                  )} */}
                 </View>
               </TouchableOpacity>
               <View
@@ -121,10 +121,10 @@ const DetailScreen = props => {
                   backgroundColor: '#f2f2f2',
                   borderRadius: 10,
                 }}>
-                <Image
+                {/* <Image
                   style={{height: 150, flex: 1, width: '90%', marginLeft: '5%'}}
                   source={require('../assets/images/2.jpg')}
-                />
+                /> */}
               </View>
               <View
                 style={{
@@ -133,10 +133,10 @@ const DetailScreen = props => {
                   backgroundColor: '#f2f2f2',
                   borderRadius: 10,
                 }}>
-                <Image
+                {/* <Image
                   style={{height: 150, flex: 1, width: '90%', marginLeft: '5%'}}
                   source={require('../assets/images/3.jpg')}
-                />
+                /> */}
               </View>
             </ScrollView>
           </View>
