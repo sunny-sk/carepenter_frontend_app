@@ -67,26 +67,6 @@ function DrawerNavigator(props) {
             fontSize: 15,
           },
         }}>
-        {/* {welcome ? (
-          <Drawer.Screen
-            name="welcome" // routing name
-            component={WelcomeStackScreens}
-            options={{
-              title: 'welcome',
-              drawerIcon: props => {
-                return (
-                  <Text>
-                    <AntDesign
-                      name="home"
-                      size={23}
-                      color={props.focused ? '#7047a3' : 'black'}
-                    />
-                  </Text>
-                );
-              },
-            }}
-          />
-        ) : null} */}
         <Drawer.Screen
           name="main" // routing name
           component={mainStackScreen}

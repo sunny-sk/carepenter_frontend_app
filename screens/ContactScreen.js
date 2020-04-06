@@ -6,15 +6,19 @@ import {
   ActivityIndicator,
   StyleSheet,
   View,
+  Linking,
+  Alert,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Buttons from '../components/CustomButton';
 import Colors from '../constants/Colors';
 
-const ContactScreen = props => {
+const ContactScreen = (props) => {
   const onSend = () => {};
-  const onCall = () => {};
+  const onCall = () => {
+    Linking.openURL('tel:${9891531824}');
+  };
 
   props.navigation.setOptions({
     headerLeft: () => {

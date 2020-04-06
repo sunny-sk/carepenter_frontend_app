@@ -12,6 +12,7 @@ import {
   Keyboard,
   ActivityIndicator,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
 
 import Comments from '../components/Comments';
@@ -24,13 +25,23 @@ const DetailScreen = (props) => {
   const [isModalActive, setModalActive] = useState(false);
   const [url, setUrl] = useState(undefined);
   const [comments, setComments] = useState([1, 2, 3, 4, 5, 6, 6, 77, 7]);
+
+  //TODO add play store link
+  const onShareDetails = () => {
+    Linking.openURL(
+      `whatsapp://send?text=Look at this awesome design \nwww.carpenter.in/roduct/design/124dhdk   // plaStore app link`,
+    );
+  };
+
   props.navigation.setOptions({
     headerRight: () => {
       return (
+        //share details
         <View style={{marginRight: 10}}>
           <TouchableOpacity
             onPress={() => {
               Keyboard.dismiss();
+              onShareDetails();
             }}
             style={{marginLeft: 10}}>
             <Entypo name="share" size={26} color={'white'} />
