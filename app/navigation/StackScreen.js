@@ -6,13 +6,13 @@ import Colors from '../constants/Colors';
 import Walkthrough1 from '../components/Walkthrough1';
 import Walkthrough2 from '../components/Walkthrough2';
 import Walkthrough3 from '../components/Walkthrough3';
-import ProfileScreen from '../screens/ProfileScreen';
-import CategoriesScreen from '../screens/CategoriesScreen';
-import HomeScreen from '../screens/HomeScreen';
-import DetailScreen from '../screens/DetailScreen';
+import ProfileScreen from '../../screens/ProfileScreen';
+import CategoriesScreen from '../../screens/CategoriesScreen';
+import HomeScreen from '../../screens/HomeScreen';
+import DetailScreen from '../../screens/DetailScreen';
 import TabNavigator from './TabScreen';
-import ContactScreen from '../screens/ContactScreen';
-import CategoryTypeScreen from '../screens/CategoryTypeScreen';
+import ContactScreen from '../../screens/ContactScreen';
+import CategoryTypeScreen from '../../screens/CategoryTypeScreen';
 
 const stack = createStackNavigator();
 

@@ -14,7 +14,7 @@ import {
   ContactScreenStack,
   mainStackScreen,
   WelcomeStackScreens,
-} from '../navigation/StackScreen';
+} from './StackScreen';
 
 const Drawer = createDrawerNavigator();
 

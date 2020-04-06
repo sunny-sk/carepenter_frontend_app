@@ -8,7 +8,6 @@ import {
   ImageBackground,
   TouchableNativeFeedback,
 } from 'react-native';
-import Colors from '../constants/Colors';
 
 const CategoryTile = (props) => {
   let TouchableCmp = TouchableOpacity;
