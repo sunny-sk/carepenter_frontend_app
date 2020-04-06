@@ -1,12 +1,12 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, View} from 'react-native';
+import {SafeAreaView} from 'react-native';
 
 //screens
 import Walkthrough1 from '../components/Walkthrough1';
 import Walkthrough2 from '../components/Walkthrough2';
 import Walkthrough3 from '../components/Walkthrough3';
 
-const Welcome = props => {
+const Welcome = (props) => {
   return (
     <>
       <SafeAreaView>

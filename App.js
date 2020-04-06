@@ -6,17 +6,14 @@ import Colors from './constants/Colors';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {enableScreens} from 'react-native-screens';
 import {NavigationContainer} from '@react-navigation/native';
-import SplashScreen from 'react-native-splash-screen';
+
 import {WelcomeStackScreens} from './navigation/StackScreen';
 import DrawerNavigator from './navigation/DrawerNavigator';
 import AsyncStorage from '@react-native-community/async-storage';
 
 enableScreens();
-const App = props => {
+const App = (props) => {
   // const [welcome, setWelcome] = useState(true);
-  useEffect(() => {
-    SplashScreen.hide();
-  }, []);
 
   // const checkWelcome = async () => {
   //   const value = await AsyncStorage.getItem('welcome');

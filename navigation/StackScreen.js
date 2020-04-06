@@ -16,7 +16,9 @@ import CategoryTypeScreen from '../screens/CategoryTypeScreen';
 
 const stack = createStackNavigator();
 
-const YourComponent = props => <Walkthrough3 click={props.notify} {...props} />;
+const YourComponent = (props) => (
+  <Walkthrough3 click={props.notify} {...props} />
+);
 
 export function WelcomeStackScreens(paasedProps) {
   console.log('Zdf', paasedProps);
@@ -141,7 +143,7 @@ export function CategoriesScreenStack() {
         name="categories"
         component={CategoriesScreen}
         options={{
-          title: '',
+          title: 'Categories',
           headerStyle: {
             backgroundColor: Colors.primary,
           },

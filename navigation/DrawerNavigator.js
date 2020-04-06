@@ -48,14 +48,14 @@ function CustomDrawerContent(props) {
 }
 
 function DrawerNavigator(props) {
-  useEffect(params => {
+  useEffect((params) => {
     console.log('in drawer navigator');
   }, []);
 
   return (
     <>
       <Drawer.Navigator
-        drawerContent={props => CustomDrawerContent(props)}
+        drawerContent={(props) => CustomDrawerContent(props)}
         drawerType="slide"
         drawerContentOptions={{
           activeTintColor: '#7047a3',
@@ -92,7 +92,7 @@ function DrawerNavigator(props) {
           component={mainStackScreen}
           options={{
             title: 'Home',
-            drawerIcon: props => {
+            drawerIcon: (props) => {
               return (
                 <Text>
                   <AntDesign
@@ -105,7 +105,7 @@ function DrawerNavigator(props) {
             },
           }}
         />
-        <Drawer.Screen
+        {/* <Drawer.Screen
           name="profile" // routing name
           component={ProfileStackScreen}
           options={{
@@ -123,13 +123,13 @@ function DrawerNavigator(props) {
               );
             },
           }}
-        />
+        /> */}
         <Drawer.Screen
           name="contact" // routing name
           component={ContactScreenStack}
           options={{
             title: 'Contact us',
-            drawerIcon: props => {
+            drawerIcon: (props) => {
               return (
                 <Text>
                   <AntDesign

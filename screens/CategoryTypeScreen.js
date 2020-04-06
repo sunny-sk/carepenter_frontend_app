@@ -10,8 +10,8 @@ import {
 import Colors from '../constants/Colors';
 import Entypo from 'react-native-vector-icons/Entypo';
 
-const CategoryTypeScreen = props => {
-  const [products, setProducts] = useState([1, 2, 3, 4, 5, 6, 63]);
+const CategoryTypeScreen = (props) => {
+  const [products, setProducts] = useState([1]);
   const [title, setTitle] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 

@@ -1,19 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  SafeAreaView,
-  Dimensions,
-  ScrollView,
-  TextInput,
-  Modal,
-  Image,
-  Animated,
-  Text,
-  ActivityIndicator,
-  TouchableOpacity,
-} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React from 'react';
+import {View, StyleSheet, Image, ScrollView, Text} from 'react-native';
 const Comments = props => {
   return (
     <>
@@ -36,6 +22,7 @@ const Comments = props => {
                   style={{
                     width: '30%',
                     alignItems: 'center',
+                    backgroundColor: '#fff',
                   }}>
                   <Image
                     style={{
@@ -43,7 +30,7 @@ const Comments = props => {
                       width: 40,
                       borderRadius: 100,
                     }}
-                    source={require('../assets/images/no_user_profile.png')}
+                    source={require('../assets/images/no_user_profile1.jpg')}
                   />
                 </View>
                 <View

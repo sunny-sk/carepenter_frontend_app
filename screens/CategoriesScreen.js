@@ -12,7 +12,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import {CATEGORIES} from '../data/dummy.category';
 import CategoryTile from '../components/CategoryTile';
 
-const CategoriesScreen = props => {
+const CategoriesScreen = (props) => {
   props.navigation.setOptions({
     headerLeft: () => {
       return (
@@ -34,11 +34,12 @@ const CategoriesScreen = props => {
     },
   });
 
-  const renderGridItem = item => {
+  const renderGridItem = (item) => {
     return (
       <>
         <CategoryTile
           title={item.item.name}
+          imgUrl={item.item.imgUrl}
           onSelect={() => {
             props.navigation.navigate('categoryType', {data: item.item});
           }}
