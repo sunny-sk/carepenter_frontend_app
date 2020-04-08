@@ -12,7 +12,7 @@ import {
 import Circle from './Circle';
 import Colors from '../constants/Colors';
 
-const Walkthrough2 = props => {
+const Walkthrough2 = (props) => {
   const moveToNext = () => {
     props.navigation.navigate('Walkthrough3');
   };
@@ -21,7 +21,7 @@ const Walkthrough2 = props => {
       <SafeAreaView>
         <View style={{alignItems: 'center', marginTop: '30%'}}>
           <Image
-            source={require('../assets/images/walkthrough1_fill.png')}
+            source={require('./../../assets/images/walkthrough1_fill.png')}
             style={{height: 150, width: 150}}
           />
         </View>

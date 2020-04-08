@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   TouchableOpacity,
@@ -8,11 +8,48 @@ import {
   FlatList,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
+import CategoryTile from '../app/components/CategoryTile';
 
-import {CATEGORIES} from '../data/dummy.category';
-import CategoryTile from '../components/CategoryTile';
+// redux
+
+import {getCategories} from '../store/action/categoriesAction';
+import {useSelector, useDispatch} from 'react-redux';
 
 const CategoriesScreen = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const [categories, setCategories] = useState([]);
+  const availableCategories = useSelector((state) => {
+    return state.categories;
+  });
+  useEffect(() => {
+    setCategories([...availableCategories.categories]);
+  }, [availableCategories]);
+
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      // Screen was focused
+      console.log('Home screen screen focused');
+      // load tasks
+      loadCategory();
+    });
+
+    return unsubscribe;
+  }, [loadCategory]);
+
+  //@desc load task
+  const loadCategory = async () => {
+    console.log('category Loading');
+    try {
+      setIsLoading(true);
+      await dispatch(getCategories());
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
+  };
+
   props.navigation.setOptions({
     headerLeft: () => {
       return (
@@ -28,7 +65,7 @@ const CategoriesScreen = (props) => {
     headerRight: () => {
       return (
         <View style={{marginRight: 15}}>
-          <ActivityIndicator size="small" color="#ffff" />
+          {isLoading ? <ActivityIndicator size="small" color="#ffff" /> : null}
         </View>
       );
     },
@@ -53,7 +90,8 @@ const CategoriesScreen = (props) => {
         <View style={{height: '100%', backgroundColor: '#fff'}}>
           <View>
             <FlatList
-              data={CATEGORIES}
+              keyExtractor={(key) => key._id}
+              data={categories}
               renderItem={renderGridItem}
               numColumns={2}
             />

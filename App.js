@@ -1,16 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import {StatusBar, Text, View} from 'react-native';
 
-import Colors from './constants/Colors';
+import Colors from './app/constants/Colors';
 
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {enableScreens} from 'react-native-screens';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {WelcomeStackScreens} from './navigation/StackScreen';
-import DrawerNavigator from './navigation/DrawerNavigator';
+import {WelcomeStackScreens} from './app/navigation/StackScreen';
+import DrawerNavigator from './app/navigation/DrawerNavigator';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import {Provider} from 'react-redux';
+import ReduxThunk from 'redux-thunk';
+import {combineReducers, createStore, applyMiddleware} from 'redux';
+import categoriesReducers from './store/reducers/categoriesReducers';
 enableScreens();
 const App = (props) => {
   // const [welcome, setWelcome] = useState(true);
@@ -42,14 +46,21 @@ const App = (props) => {
   //     </>
   //   );
   // } else {
+  const rootReducer = combineReducers({
+    categories: categoriesReducers,
+  });
+  const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor={Colors.primary} />
-      <SafeAreaProvider>
-        <NavigationContainer>
-          <DrawerNavigator />
-        </NavigationContainer>
-      </SafeAreaProvider>
+      <Provider store={store}>
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <DrawerNavigator />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </Provider>
     </>
   );
   // }

@@ -11,7 +11,7 @@ import {
   ActivityIndicator,
   Dimensions,
 } from 'react-native';
-import Colors from '../constants/Colors';
+import Colors from './../app/constants/Colors';
 import SplashScreen from 'react-native-splash-screen';
 import Entypo from 'react-native-vector-icons/Entypo';
 const windowWidth = Dimensions.get('window').width;

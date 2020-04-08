@@ -12,7 +12,7 @@ import {
 import Circle from './Circle';
 import Colors from '../constants/Colors';
 import AsyncStorage from '@react-native-community/async-storage';
-const Walkthrough3 = React.memo(function(props) {
+const Walkthrough3 = React.memo(function (props) {
   const moveNext = async () => {
     try {
       await AsyncStorage.setItem('welcome', 'set');
@@ -27,7 +27,7 @@ const Walkthrough3 = React.memo(function(props) {
       <SafeAreaView>
         <View style={{alignItems: 'center', marginTop: '30%'}}>
           <Image
-            source={require('../assets/images/walkthrough3-1.png')}
+            source={require('./../../assets/images/walkthrough3-1.png')}
             style={{height: 150}}
           />
         </View>

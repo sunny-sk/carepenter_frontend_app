@@ -12,7 +12,7 @@ import {
 import Circle from './Circle';
 import Colors from '../constants/Colors';
 
-const Walthrough1 = props => {
+const Walthrough1 = (props) => {
   const moveToNext = () => {
     console.log('clickd');
     props.navigation.navigate('Walkthrough2');
@@ -27,7 +27,7 @@ const Walthrough1 = props => {
             justifyContent: 'flex-end',
           }}>
           <Image
-            source={require('../assets/images/walkthrough1_fill.png')}
+            source={require('./../../assets/images/walkthrough1_fill.png')}
             style={{height: 150, width: 150}}
           />
         </View>

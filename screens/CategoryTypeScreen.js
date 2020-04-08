@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
-import Colors from '../constants/Colors';
+import Colors from './../app/constants/Colors';
 import Entypo from 'react-native-vector-icons/Entypo';
 
 const CategoryTypeScreen = (props) => {

@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Colors from '../constants/Colors';
-const ProfileScreen = props => {
+import Colors from '../app/constants/Colors';
+const ProfileScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const onSave = params => {
+  const onSave = (params) => {
     console.log('save profile button clicked');
   };
 

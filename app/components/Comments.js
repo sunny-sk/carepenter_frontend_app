@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Image, ScrollView, Text} from 'react-native';
-const Comments = props => {
+const Comments = (props) => {
   return (
     <>
       <ScrollView>
@@ -30,7 +30,7 @@ const Comments = props => {
                       width: 40,
                       borderRadius: 100,
                     }}
-                    source={require('../assets/images/no_user_profile1.jpg')}
+                    source={require('../../assets/images/no_user_profile1.jpg')}
                   />
                 </View>
                 <View

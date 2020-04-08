@@ -31,7 +31,7 @@ function CustomDrawerContent(props) {
           }}>
           <Image
             style={{height: 80, width: 80}}
-            source={require('../assets/images/user.png')}
+            source={require('./../../assets/images/user.png')}
           />
         </View>
       </View>
