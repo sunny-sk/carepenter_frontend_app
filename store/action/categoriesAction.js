@@ -9,7 +9,7 @@ export const getCategories = () => {
       const result = await axios.get(Url.getAllCategory);
       dispatch({type: GET_CATEGORIES, data: result.data.categories});
     } catch (error) {
-      throw new Error('server error');
+      throw error;
     }
   };
 };

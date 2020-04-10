@@ -5,13 +5,14 @@ import {
   Text,
   View,
   ActivityIndicator,
+  Image,
   FlatList,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import CategoryTile from '../app/components/CategoryTile';
-
+import Snackbar from 'react-native-snackbar';
+import Colors from '../app/constants/Colors';
 // redux
-
 import {getCategories} from '../store/action/categoriesAction';
 import {useSelector, useDispatch} from 'react-redux';
 
@@ -22,6 +23,7 @@ const CategoriesScreen = (props) => {
   const availableCategories = useSelector((state) => {
     return state.categories;
   });
+  const [error, setError] = useState(undefined);
   useEffect(() => {
     setCategories([...availableCategories.categories]);
   }, [availableCategories]);
@@ -29,14 +31,31 @@ const CategoriesScreen = (props) => {
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
       // Screen was focused
-      console.log('Home screen screen focused');
-      // load tasks
+      console.log('category screen screen focused');
+      // load category
       loadCategory();
     });
 
     return unsubscribe;
   }, [loadCategory]);
 
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+      Snackbar.show({
+        text: error,
+        duration: Snackbar.LENGTH_SHORT,
+        backgroundColor: Colors.cancel,
+        action: {
+          text: 'try again',
+          textColor: '#fff',
+          onPress: () => {
+            loadCategory();
+          },
+        },
+      });
+    }
+  }, [error]);
   //@desc load task
   const loadCategory = async () => {
     console.log('category Loading');
@@ -46,7 +65,11 @@ const CategoriesScreen = (props) => {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      if (error.message === 'Network Error') {
+        setError('Something went Wrong');
+      } else {
+        setError(error.message);
+      }
     }
   };
 
@@ -88,14 +111,32 @@ const CategoriesScreen = (props) => {
     <>
       <SafeAreaView>
         <View style={{height: '100%', backgroundColor: '#fff'}}>
-          <View>
-            <FlatList
-              keyExtractor={(key) => key._id}
-              data={categories}
-              renderItem={renderGridItem}
-              numColumns={2}
-            />
-          </View>
+          {isLoading ? (
+            <View style={{alignItems: 'center', marginTop: '50%'}}>
+              <View style={{width: '90%'}}>
+                <Text style={{textAlign: 'center', fontSize: 15}}>
+                  Please wait while we are fetching categories list....
+                </Text>
+              </View>
+            </View>
+          ) : null}
+          {categories.length > 0 && !isLoading ? (
+            <View>
+              <FlatList
+                keyExtractor={(key) => key._id}
+                data={categories}
+                renderItem={renderGridItem}
+                numColumns={2}
+              />
+            </View>
+          ) : null}
+          {categories.length === 0 && !isLoading ? (
+            <View style={{alignItems: 'center', marginTop: '50%'}}>
+              <View style={{width: '80%'}}>
+                <Text style={{textAlign: 'center'}}>No Categories Found</Text>
+              </View>
+            </View>
+          ) : null}
         </View>
       </SafeAreaView>
     </>

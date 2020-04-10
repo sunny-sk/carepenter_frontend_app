@@ -25,6 +25,11 @@ const DetailScreen = (props) => {
   const [isModalActive, setModalActive] = useState(false);
   const [url, setUrl] = useState(undefined);
   const [comments, setComments] = useState([1, 2, 3, 4, 5, 6, 6, 77, 7]);
+  const [productData, setProductData] = useState({});
+
+  useEffect(() => {
+    setProductData({...props.route.params.data});
+  }, [props.navigation]);
 
   //TODO add play store link
   const onShareDetails = () => {
@@ -51,14 +56,6 @@ const DetailScreen = (props) => {
     },
   });
 
-  useEffect(() => {
-    setTimeout(() => {
-      setUrl(
-        'https://images.ctfassets.net/yadj1kx9rmg0/wtrHxeu3zEoEce2MokCSi/cf6f68efdcf625fdc060607df0f3baef/quwowooybuqbl6ntboz3.jpg',
-      );
-    }, 2000);
-  }, []);
-
   return (
     <>
       {isModalActive ? (
@@ -79,7 +76,11 @@ const DetailScreen = (props) => {
             }}>
             <Image
               style={{height: 200, width: '100%'}}
-              source={require('../assets/images/1.jpg')}
+              source={{
+                uri:
+                  'https://res.cloudinary.com/smarty123/image/upload/v1585897914/' +
+                  productData.imgUrl,
+              }}
             />
           </View>
         </Modal>
@@ -100,7 +101,7 @@ const DetailScreen = (props) => {
                     backgroundColor: '#f2f2f2',
                     borderRadius: 10,
                   }}>
-                  {url ? (
+                  {productData.imgUrl ? (
                     <Image
                       style={{
                         height: 150,
@@ -109,7 +110,9 @@ const DetailScreen = (props) => {
                         marginLeft: '5%',
                       }}
                       source={{
-                        uri: url,
+                        uri:
+                          'https://res.cloudinary.com/smarty123/image/upload/v1585897914/' +
+                          productData.imgUrl,
                       }}
                     />
                   ) : (
@@ -125,30 +128,6 @@ const DetailScreen = (props) => {
                   )}
                 </View>
               </TouchableOpacity>
-              <View
-                style={{
-                  height: 150,
-                  width: windowWidth,
-                  backgroundColor: '#f2f2f2',
-                  borderRadius: 10,
-                }}>
-                <Image
-                  style={{height: 150, flex: 1, width: '90%', marginLeft: '5%'}}
-                  source={require('../assets/images/2.jpg')}
-                />
-              </View>
-              <View
-                style={{
-                  height: 150,
-                  width: windowWidth,
-                  backgroundColor: '#f2f2f2',
-                  borderRadius: 10,
-                }}>
-                <Image
-                  style={{height: 150, flex: 1, width: '90%', marginLeft: '5%'}}
-                  source={require('../assets/images/2.jpg')}
-                />
-              </View>
             </ScrollView>
           </View>
           {/* content */}
@@ -156,10 +135,7 @@ const DetailScreen = (props) => {
             <Text style={styles.desHeading}>Description</Text>
 
             <View style={{marginTop: 2, width: '96%', marginLeft: '2%'}}>
-              <Text style={styles.desText}>
-                flush door made of wood type sirsa lorem ipsum tetxt hai ye
-                flush door made of wood type sirsa lorem ipsum tetxt hai ye
-              </Text>
+              <Text style={styles.desText}>{productData.description}</Text>
             </View>
             <View style={{marginTop: 5}}>
               <Text
@@ -168,7 +144,7 @@ const DetailScreen = (props) => {
               </Text>
               <View style={styles.detailRow}>
                 <View style={styles.widthHalf}>
-                  <Text>Height : 200</Text>
+                  <Text>Height : {productData.height}</Text>
                 </View>
                 <View style={styles.widthHalf}>
                   <Text style={styles.detailTextRight}>Total Area : 100</Text>
@@ -176,7 +152,7 @@ const DetailScreen = (props) => {
               </View>
               <View style={styles.detailRow}>
                 <View style={styles.widthHalf}>
-                  <Text>Width : 200</Text>
+                  <Text>Width : {productData.width}</Text>
                 </View>
                 <View style={styles.widthHalf}>
                   <Text style={styles.detailTextRight}>Wood Type : 100</Text>
@@ -184,10 +160,12 @@ const DetailScreen = (props) => {
               </View>
               <View style={styles.detailRow}>
                 <View style={styles.widthHalf}>
-                  <Text>Depth : 200</Text>
+                  <Text>Depth : {productData.depth}</Text>
                 </View>
                 <View style={styles.widthHalf}>
-                  <Text style={styles.detailTextRight}>Location : 100</Text>
+                  <Text style={styles.detailTextRight}>
+                    Location : {productData.location}
+                  </Text>
                 </View>
               </View>
             </View>

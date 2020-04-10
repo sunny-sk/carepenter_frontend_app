@@ -15,6 +15,7 @@ import {Provider} from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import {combineReducers, createStore, applyMiddleware} from 'redux';
 import categoriesReducers from './store/reducers/categoriesReducers';
+import productReducers from './store/reducers/productReducers';
 enableScreens();
 const App = (props) => {
   // const [welcome, setWelcome] = useState(true);
@@ -48,6 +49,7 @@ const App = (props) => {
   // } else {
   const rootReducer = combineReducers({
     categories: categoriesReducers,
+    products: productReducers,
   });
   const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 

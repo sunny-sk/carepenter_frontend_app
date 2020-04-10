@@ -14,18 +14,71 @@ import {
 import Colors from './../app/constants/Colors';
 import SplashScreen from 'react-native-splash-screen';
 import Entypo from 'react-native-vector-icons/Entypo';
+// redux
+import {getAllProducts} from '../store/action/productsAction';
+import {useSelector, useDispatch} from 'react-redux';
+
 const windowWidth = Dimensions.get('window').width;
 const HomeScreen = (props) => {
-  const [products, setProducts] = useState([1]);
+  const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(undefined);
+  const dispatch = useDispatch();
+
+  const availableProducts = useSelector((state) => {
+    return state.products;
+  });
+
+  useEffect(() => {
+    setProducts([...availableProducts.products]);
+  }, [availableProducts]);
+
+  //@desc load products
+  const loadProducts = async (status) => {
+    try {
+      if (status.backgroundFetch) {
+        console.log('background fetching');
+        await dispatch(getAllProducts());
+      } else {
+        console.log('products Loading  first time');
+        setIsLoading(true);
+        await dispatch(getAllProducts());
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      if (error.message === 'Network Error') {
+        setError('Something went Wrong');
+      } else {
+        setError(error.message);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      // Screen was focused
+      console.log('Home screen screen focused');
+      // load products
+      loadProducts({backgroundFetch: true});
+    });
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    loadProducts({backgroundFetch: false});
+  }, []);
+
+  //hiding splash screen
   useEffect(() => {
     SplashScreen.hide();
   }, []);
 
   const loadMore = () => {
-    console.log('load more clicked');
+    // console.log('load more clicked');
   };
 
+  //setting status bar color
   useEffect(() => {
     StatusBar.setBackgroundColor(Colors.primary);
   });
@@ -65,7 +118,7 @@ const HomeScreen = (props) => {
     headerRight: () => {
       return (
         <View style={{marginRight: 15}}>
-          <ActivityIndicator size="small" color="#ffff" />
+          {isLoading ? <ActivityIndicator size="small" color="#ffff" /> : null}
         </View>
       );
     },
@@ -90,7 +143,8 @@ const HomeScreen = (props) => {
                   <TouchableOpacity
                     key={index}
                     onPress={() => {
-                      props.navigation.navigate('detail');
+                      console.log('perticular product clicked');
+                      props.navigation.navigate('detail', {data: product});
                     }}>
                     <View style={styles.card}>
                       <View style={{height: '100%'}}>
@@ -101,7 +155,11 @@ const HomeScreen = (props) => {
                               height: '100%',
                               justifyContent: 'flex-end',
                             }}
-                            source={require('../assets/images/1.jpg')}>
+                            source={{
+                              uri:
+                                'https://res.cloudinary.com/smarty123/image/upload/v1585897914/' +
+                                product.imgUrl,
+                            }}>
                             <Text
                               style={{
                                 backgroundColor: 'rgba(0,0,0,0.6)',
@@ -112,7 +170,7 @@ const HomeScreen = (props) => {
                                 paddingHorizontal: 10,
                                 paddingVertical: 5,
                               }}>
-                              {'title'}
+                              {product.title}
                             </Text>
                           </ImageBackground>
                         </View>
@@ -121,7 +179,7 @@ const HomeScreen = (props) => {
                   </TouchableOpacity>
                 );
               })}
-              <View style={styles.lastCard}>
+              {/* <View style={styles.lastCard}>
                 <TouchableOpacity
                   onPress={() => {
                     loadMore();
@@ -129,7 +187,7 @@ const HomeScreen = (props) => {
                   <Text style={{textAlign: 'center'}}>more click here</Text>
                 </TouchableOpacity>
                 <ActivityIndicator size="small" color={Colors.primary} />
-              </View>
+              </View> */}
             </ScrollView>
           </View>
         )}
