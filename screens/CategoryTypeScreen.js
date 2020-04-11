@@ -6,14 +6,35 @@ import {
   View,
   ActivityIndicator,
   StyleSheet,
+  ImageBackground,
 } from 'react-native';
 import Colors from './../app/constants/Colors';
 import Entypo from 'react-native-vector-icons/Entypo';
+import {getAllProductsByCategory} from '../store/action/commonActions';
+import {useDispatch} from 'react-redux';
 
 const CategoryTypeScreen = (props) => {
-  const [products, setProducts] = useState([1]);
+  const [products, setProducts] = useState([]);
+  const [category, setCategory] = useState('');
   const [title, setTitle] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setCategory(props.route.params.data.name);
+
+    loadCategoryProducts();
+  }, [props.navigation]);
+
+  const loadCategoryProducts = async () => {
+    try {
+      setIsLoading(true);
+      const result = await dispatch(getAllProductsByCategory(category));
+      setProducts([...result.products]);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
 
   const loadMore = () => {
     console.log('load more clicked');
@@ -24,9 +45,7 @@ const CategoryTypeScreen = (props) => {
       // Screen was focused
       setTitle(props.route.params.data.name);
       console.log('category type screen screen focused');
-      // load tasks
     });
-
     return unsubscribe;
   }, []);
 
@@ -51,9 +70,39 @@ const CategoryTypeScreen = (props) => {
                 <TouchableOpacity
                   key={index}
                   onPress={() => {
-                    props.navigation.navigate('detail');
+                    console.log('perticular category product clicked');
+                    props.navigation.navigate('detail', {data: product});
                   }}>
-                  <View style={styles.card}></View>
+                  <View style={styles.card}>
+                    <View style={{height: '100%'}}>
+                      <View style={{height: '100%'}}>
+                        <ImageBackground
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            justifyContent: 'flex-end',
+                          }}
+                          source={{
+                            uri:
+                              'https://res.cloudinary.com/smarty123/image/upload/v1585897914/' +
+                              product.imgUrl,
+                          }}>
+                          <Text
+                            style={{
+                              backgroundColor: 'rgba(0,0,0,0.6)',
+                              color: '#fff',
+                              fontWeight: 'bold',
+                              fontSize: 22,
+                              textAlign: 'center',
+                              paddingHorizontal: 10,
+                              paddingVertical: 5,
+                            }}>
+                            {product.title}
+                          </Text>
+                        </ImageBackground>
+                      </View>
+                    </View>
+                  </View>
                 </TouchableOpacity>
               );
             })}

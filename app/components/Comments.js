@@ -24,22 +24,43 @@ const Comments = (props) => {
                     alignItems: 'center',
                     backgroundColor: '#fff',
                   }}>
-                  <Image
-                    style={{
-                      height: 40,
-                      width: 40,
-                      borderRadius: 100,
-                    }}
-                    source={require('../../assets/images/no_user_profile1.jpg')}
-                  />
+                  {comment.user.imgUrl ? (
+                    <Image
+                      style={{
+                        height: 40,
+                        width: 40,
+                        borderRadius: 100,
+                      }}
+                      source={
+                        comment.user.imgUrl
+                          ? {
+                              uri:
+                                'https://res.cloudinary.com/smarty123/image/upload/v1585897914/' +
+                                comment.user.imgUrl,
+                            }
+                          : require('../../assets/images/no_user_profile1.jpg')
+                      }
+                    />
+                  ) : (
+                    <Image
+                      style={{
+                        height: 40,
+                        width: 40,
+                        borderRadius: 100,
+                      }}
+                      source={require('../../assets/images/no_user_profile1.jpg')}
+                    />
+                  )}
                 </View>
                 <View
                   style={{
                     justifyContent: 'center',
                     width: '70%',
                   }}>
-                  <Text style={{fontSize: 12, color: '#c6c6c6'}}>username</Text>
-                  <Text>this my first comment</Text>
+                  <Text style={{fontSize: 12, color: '#c6c6c6'}}>
+                    {comment.user.name}
+                  </Text>
+                  <Text>{comment.comment}</Text>
                 </View>
               </View>
             </View>

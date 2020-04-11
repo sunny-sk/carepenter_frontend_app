@@ -13,7 +13,12 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Linking,
+  Alert,
 } from 'react-native';
+
+//redux
+import {getAllComments, doComment} from '../store/action/commonActions';
+import {useDispatch} from 'react-redux';
 
 import Comments from './../app/components/Comments';
 import Colors from './../app/constants/Colors';
@@ -23,13 +28,41 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const windowWidth = Dimensions.get('window').width;
 const DetailScreen = (props) => {
   const [isModalActive, setModalActive] = useState(false);
-  const [url, setUrl] = useState(undefined);
-  const [comments, setComments] = useState([1, 2, 3, 4, 5, 6, 6, 77, 7]);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
   const [productData, setProductData] = useState({});
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setProductData({...props.route.params.data});
+    loadComments(props.route.params.data._id);
   }, [props.navigation]);
+
+  const loadComments = async (id) => {
+    try {
+      setIsLoading(true);
+      const result = await dispatch(getAllComments(id));
+      setIsLoading(false);
+      setComments([...result.comments]);
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
+
+  const onComment = async () => {
+    try {
+      if (newComment === '') {
+        Alert.alert('Please add a comment');
+        return;
+      }
+      setIsLoading(true);
+      await dispatch(doComment(newComment, productData._id));
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
 
   //TODO add play store link
   const onShareDetails = () => {
@@ -178,11 +211,20 @@ const DetailScreen = (props) => {
         <View style={styles.commentContainer}>
           <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
             <View>
-              <TextInput placeholder="type comment" />
+              <TextInput
+                value={newComment}
+                onChangeText={(text) => setNewComment(text)}
+                placeholder="type comment"
+              />
             </View>
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <ActivityIndicator size="small" color="black" />
-              {/* <Ionicons name="md-send" color={Colors.primary} size={24} /> */}
+              {isLoading ? (
+                <ActivityIndicator size="small" color="black" />
+              ) : (
+                <TouchableOpacity onPress={onComment}>
+                  <Ionicons name="md-send" color={Colors.primary} size={24} />
+                </TouchableOpacity>
+              )}
             </View>
           </View>
           {/* <Text style={{textAlign: 'center'}}>login to comment</Text> */}
