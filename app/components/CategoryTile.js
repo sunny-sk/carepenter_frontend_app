@@ -26,7 +26,9 @@ const CategoryTile = (props) => {
                 justifyContent: 'flex-end',
               }}
               source={{
-                uri: props.imgUrl,
+                uri:
+                  'https://res.cloudinary.com/smarty123/image/upload/v1585897914/' +
+                  props.imgUrl,
               }}>
               <Text
                 numberOfLines={2}

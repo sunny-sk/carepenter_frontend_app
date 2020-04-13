@@ -9,6 +9,7 @@ import {
   FlatList,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import CategoryTile from '../app/components/CategoryTile';
 import Snackbar from 'react-native-snackbar';
 import Colors from '../app/constants/Colors';
@@ -18,6 +19,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 const CategoriesScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isBackFetchLoad, setIsBackFetchLoad] = useState(false);
   const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
   const availableCategories = useSelector((state) => {
@@ -29,34 +31,55 @@ const CategoriesScreen = (props) => {
   }, [availableCategories]);
 
   useEffect(() => {
+    loadCategory();
+  }, []);
+
+  useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
       // Screen was focused
       console.log('category screen screen focused');
       // load category
-      loadCategory();
+      backgroundFetching();
     });
 
     return unsubscribe;
-  }, [loadCategory]);
+  }, []);
 
-  useEffect(() => {
-    if (error) {
-      console.log(error);
-      Snackbar.show({
-        text: error,
-        duration: Snackbar.LENGTH_SHORT,
-        backgroundColor: Colors.cancel,
-        action: {
-          text: 'try again',
-          textColor: '#fff',
-          onPress: () => {
-            loadCategory();
-          },
+  const showError = (error) => {
+    console.log(error);
+    Snackbar.show({
+      text: error,
+      duration: Snackbar.LENGTH_SHORT,
+      backgroundColor: Colors.cancel,
+      action: {
+        text: 'try again',
+        textColor: '#fff',
+        onPress: () => {
+          loadCategory();
         },
-      });
-    }
-  }, [error]);
-  //@desc load task
+      },
+    });
+  };
+
+  // useEffect(() => {
+  //   if (error) {
+  //     console.log(error);
+  //     Snackbar.show({
+  //       text: error,
+  //       duration: Snackbar.LENGTH_SHORT,
+  //       backgroundColor: Colors.cancel,
+  //       action: {
+  //         text: 'try again',
+  //         textColor: '#fff',
+  //         onPress: () => {
+  //           loadCategory();
+  //         },
+  //       },
+  //     });
+  //   }
+  // }, [error]);
+
+  // @desc load task
   const loadCategory = async () => {
     console.log('category Loading');
     try {
@@ -64,15 +87,28 @@ const CategoriesScreen = (props) => {
       await dispatch(getCategories());
       setIsLoading(false);
     } catch (error) {
+      console.log(error);
       setIsLoading(false);
       if (error.message === 'Network Error') {
-        setError('Something went Wrong');
+        showError('Something Went Wrong');
       } else {
-        setError(error.message);
+        showError(error.message);
       }
     }
   };
 
+  backgroundFetching = async () => {
+    try {
+      console.log('background fetching categories');
+      setIsBackFetchLoad(true);
+      await dispatch(getCategories());
+      setIsBackFetchLoad(false);
+      console.log('background fetching categories updated');
+    } catch (error) {
+      setIsBackFetchLoad(false);
+      console.log('error background fetching ', error);
+    }
+  };
   props.navigation.setOptions({
     headerLeft: () => {
       return (
@@ -89,6 +125,9 @@ const CategoriesScreen = (props) => {
       return (
         <View style={{marginRight: 15}}>
           {isLoading ? <ActivityIndicator size="small" color="#ffff" /> : null}
+          {isBackFetchLoad ? (
+            <ActivityIndicator size="small" color="#ffff" />
+          ) : null}
         </View>
       );
     },
@@ -114,7 +153,13 @@ const CategoriesScreen = (props) => {
           {isLoading ? (
             <View style={{alignItems: 'center', marginTop: '50%'}}>
               <View style={{width: '90%'}}>
-                <Text style={{textAlign: 'center', fontSize: 15}}>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    color: Colors.primary,
+                    fontSize: 16,
+                  }}>
                   Please wait while we are fetching categories list....
                 </Text>
               </View>
@@ -138,6 +183,32 @@ const CategoriesScreen = (props) => {
             </View>
           ) : null}
         </View>
+        {/* refresh Button */}
+
+        {categories.length === 0 && !isLoading ? (
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 20,
+              right: '10%',
+              padding: 10,
+              backgroundColor: 'black',
+              borderRadius: 50,
+            }}>
+            <TouchableOpacity
+              onPress={() => {
+                loadCategory();
+              }}>
+              <View>
+                <MaterialCommunityIcons
+                  name="refresh"
+                  color="#ffff"
+                  size={25}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+        ) : null}
       </SafeAreaView>
     </>
   );

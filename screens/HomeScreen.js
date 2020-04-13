@@ -74,10 +74,6 @@ const HomeScreen = (props) => {
     SplashScreen.hide();
   }, []);
 
-  const loadMore = () => {
-    // console.log('load more clicked');
-  };
-
   //setting status bar color
   useEffect(() => {
     StatusBar.setBackgroundColor(Colors.primary);
@@ -129,12 +125,7 @@ const HomeScreen = (props) => {
       <StatusBar barStyle="light-content" backgroundColor={Colors.primary} />
       <View style={styles.screen}>
         {isLoading ? (
-          <View style={styles.noDataContainer}>
-            <Image
-              style={styles.noDataContainerImage}
-              source={require('../assets/images/home_screen_loading.png')}
-            />
-          </View>
+          <View style={styles.noDataContainer}></View>
         ) : (
           <View style={{marginTop: 20}}>
             <ScrollView>
