@@ -43,6 +43,7 @@ const DetailScreen = (props) => {
     try {
       setIsLoading(true);
       const result = await dispatch(getAllComments(id));
+
       setIsLoading(false);
       setComments([...result.comments]);
     } catch (error) {
@@ -72,6 +73,7 @@ const DetailScreen = (props) => {
   };
 
   props.navigation.setOptions({
+    title: productData.title,
     headerRight: () => {
       return (
         //share details
@@ -108,7 +110,7 @@ const DetailScreen = (props) => {
               alignItems: 'center',
             }}>
             <Image
-              style={{height: 200, width: '100%'}}
+              style={{height: '100%', width: '100%'}}
               source={{
                 uri:
                   'https://res.cloudinary.com/smarty123/image/upload/v1585897914/' +
@@ -163,48 +165,25 @@ const DetailScreen = (props) => {
               </TouchableOpacity>
             </ScrollView>
           </View>
-          {/* content */}
+          {/* Description */}
           <View style={styles.secondPart}>
             <Text style={styles.desHeading}>Description</Text>
-
-            <View style={{marginTop: 2, width: '96%', marginLeft: '2%'}}>
+            <View
+              style={{
+                marginTop: 5,
+                width: '96%',
+                marginLeft: '2%',
+              }}>
               <Text style={styles.desText}>{productData.description}</Text>
             </View>
-            <View style={{marginTop: 5}}>
-              <Text
-                style={{fontWeight: 'bold', marginLeft: 3, marginBottom: 2}}>
-                Details
-              </Text>
-              <View style={styles.detailRow}>
-                <View style={styles.widthHalf}>
-                  <Text>Height : {productData.height}</Text>
-                </View>
-                <View style={styles.widthHalf}>
-                  <Text style={styles.detailTextRight}>Total Area : 100</Text>
-                </View>
-              </View>
-              <View style={styles.detailRow}>
-                <View style={styles.widthHalf}>
-                  <Text>Width : {productData.width}</Text>
-                </View>
-                <View style={styles.widthHalf}>
-                  <Text style={styles.detailTextRight}>Wood Type : 100</Text>
-                </View>
-              </View>
-              <View style={styles.detailRow}>
-                <View style={styles.widthHalf}>
-                  <Text>Depth : {productData.depth}</Text>
-                </View>
-                <View style={styles.widthHalf}>
-                  <Text style={styles.detailTextRight}>
-                    Location : {productData.location}
-                  </Text>
-                </View>
-              </View>
-            </View>
+
             <View style={styles.divider}></View>
             {/* comments */}
-            <Comments comments={comments} />
+            {comments.length === 0 ? (
+              <Text>No commnets</Text>
+            ) : (
+              <Comments comments={comments} />
+            )}
           </View>
         </View>
         {/* do Comment section */}
@@ -243,13 +222,13 @@ const styles = StyleSheet.create({
   },
   desHeading: {
     fontWeight: 'bold',
-    marginTop: 2,
-    marginLeft: 3,
+    marginTop: 5,
+    marginLeft: 5,
   },
   desText: {
     color: '#aaaaaa',
     marginTop: 1,
-    fontSize: 13,
+    fontSize: 14,
     textAlign: 'justify',
   },
   detailRow: {

@@ -86,10 +86,22 @@ export function ContactScreenStack() {
 export function mainStackScreen() {
   return (
     <stack.Navigator keyboardHandlingEnabled={false}>
-      <stack.Screen
+      {/* <stack.Screen
         name="home"
-        component={TabNavigator}
+        component={CategoriesScreen}
         options={{headerShown: false}}
+      /> */}
+      <stack.Screen
+        name="categories"
+        component={CategoriesScreen}
+        options={{
+          title: 'Categories',
+          headerStyle: {
+            backgroundColor: Colors.primary,
+          },
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center', // make header title on center,
+        }}
       />
       <stack.Screen
         name="categoryType"
@@ -118,39 +130,39 @@ export function mainStackScreen() {
   );
 }
 
-export function HomeScreenStack() {
-  return (
-    <stack.Navigator keyboardHandlingEnabled={false}>
-      <stack.Screen
-        name="home"
-        component={HomeScreen}
-        options={{
-          title: 'Home',
-          headerStyle: {
-            backgroundColor: Colors.primary,
-          },
-          headerTintColor: '#fff',
-          headerTitleAlign: 'center', // make header title on center,
-        }}
-      />
-    </stack.Navigator>
-  );
-}
-export function CategoriesScreenStack() {
-  return (
-    <stack.Navigator keyboardHandlingEnabled={false}>
-      <stack.Screen
-        name="categories"
-        component={CategoriesScreen}
-        options={{
-          title: 'Categories',
-          headerStyle: {
-            backgroundColor: Colors.primary,
-          },
-          headerTintColor: '#fff',
-          headerTitleAlign: 'center', // make header title on center,
-        }}
-      />
-    </stack.Navigator>
-  );
-}
+// export function HomeScreenStack() {
+//   return (
+//     <stack.Navigator keyboardHandlingEnabled={false}>
+//       <stack.Screen
+//         name="home"
+//         component={HomeScreen}
+//         options={{
+//           title: 'Home',
+//           headerStyle: {
+//             backgroundColor: Colors.primary,
+//           },
+//           headerTintColor: '#fff',
+//           headerTitleAlign: 'center', // make header title on center,
+//         }}
+//       />
+//     </stack.Navigator>
+//   );
+// }
+// export function CategoriesScreenStack() {
+//   return (
+//     <stack.Navigator keyboardHandlingEnabled={false}>
+//       <stack.Screen
+//         name="categories"
+//         component={CategoriesScreen}
+//         options={{
+//           title: 'Categories',
+//           headerStyle: {
+//             backgroundColor: Colors.primary,
+//           },
+//           headerTintColor: '#fff',
+//           headerTitleAlign: 'center', // make header title on center,
+//         }}
+//       />
+//     </stack.Navigator>
+//   );
+// }

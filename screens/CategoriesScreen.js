@@ -19,7 +19,6 @@ import {useSelector, useDispatch} from 'react-redux';
 
 const CategoriesScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isBackFetchLoad, setIsBackFetchLoad] = useState(false);
   const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
   const availableCategories = useSelector((state) => {
@@ -100,12 +99,9 @@ const CategoriesScreen = (props) => {
   backgroundFetching = async () => {
     try {
       console.log('background fetching categories');
-      setIsBackFetchLoad(true);
       await dispatch(getCategories());
-      setIsBackFetchLoad(false);
       console.log('background fetching categories updated');
     } catch (error) {
-      setIsBackFetchLoad(false);
       console.log('error background fetching ', error);
     }
   };
@@ -125,9 +121,6 @@ const CategoriesScreen = (props) => {
       return (
         <View style={{marginRight: 15}}>
           {isLoading ? <ActivityIndicator size="small" color="#ffff" /> : null}
-          {isBackFetchLoad ? (
-            <ActivityIndicator size="small" color="#ffff" />
-          ) : null}
         </View>
       );
     },

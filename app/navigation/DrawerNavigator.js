@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, Image} from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import AsyncStorage from '@react-native-community/async-storage';
+import SplashScreen from 'react-native-splash-screen';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -51,7 +51,10 @@ function DrawerNavigator(props) {
   useEffect((params) => {
     console.log('in drawer navigator');
   }, []);
-
+  //hiding splash screen
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   return (
     <>
       <Drawer.Navigator

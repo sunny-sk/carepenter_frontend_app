@@ -56,10 +56,10 @@ export const doComment = (comment, id) => {
 export const getAllProductsByCategory = (category) => {
   return async (dispatch) => {
     try {
-      console.log(category);
       const result = await axios.get(
         Url.getAllProductsByCategory + 'category=' + category,
       );
+
       return result.data;
     } catch (error) {
       console.log(error);

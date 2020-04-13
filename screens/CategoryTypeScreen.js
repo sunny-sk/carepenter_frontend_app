@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   ImageBackground,
+  Image,
 } from 'react-native';
 import Colors from './../app/constants/Colors';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -17,18 +18,21 @@ const CategoryTypeScreen = (props) => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState('');
   const [title, setTitle] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
-    setCategory(props.route.params.data.name);
 
-    loadCategoryProducts();
+  useEffect(() => {
+    setTitle(props.route.params.data.name);
+    setCategory(props.route.params.data.name);
+    console.log(props.route.params.data.name);
+    loadCategoryProducts(props.route.params.data.name);
   }, [props.navigation]);
 
-  const loadCategoryProducts = async () => {
+  const loadCategoryProducts = async (data) => {
     try {
       setIsLoading(true);
-      const result = await dispatch(getAllProductsByCategory(category));
+
+      const result = await dispatch(getAllProductsByCategory(data));
       setProducts([...result.products]);
       setIsLoading(false);
     } catch (error) {
@@ -40,21 +44,22 @@ const CategoryTypeScreen = (props) => {
     console.log('load more clicked');
   };
 
-  useEffect(() => {
-    const unsubscribe = props.navigation.addListener('focus', () => {
-      // Screen was focused
-      setTitle(props.route.params.data.name);
-      console.log('category type screen screen focused');
-    });
-    return unsubscribe;
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = props.navigation.addListener('focus', () => {
+  //     // Screen was focused
+  //     console.log('category type screen screen focused');
+
+  //     loadCategoryProducts(category);
+  //   });
+  //   return unsubscribe;
+  // }, []);
 
   props.navigation.setOptions({
     title: title,
     headerRight: () => {
       return (
         <View style={{marginRight: 15}}>
-          <ActivityIndicator size="small" color="#ffff" />
+          {isLoading ? <ActivityIndicator size="small" color="#ffff" /> : null}
         </View>
       );
     },
@@ -75,32 +80,33 @@ const CategoryTypeScreen = (props) => {
                   }}>
                   <View style={styles.card}>
                     <View style={{height: '100%'}}>
-                      <View style={{height: '100%'}}>
-                        <ImageBackground
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            justifyContent: 'flex-end',
-                          }}
-                          source={{
-                            uri:
-                              'https://res.cloudinary.com/smarty123/image/upload/v1585897914/' +
-                              product.imgUrl,
-                          }}>
-                          <Text
-                            style={{
-                              backgroundColor: 'rgba(0,0,0,0.6)',
-                              color: '#fff',
-                              fontWeight: 'bold',
-                              fontSize: 22,
-                              textAlign: 'center',
-                              paddingHorizontal: 10,
-                              paddingVertical: 5,
-                            }}>
-                            {product.title}
-                          </Text>
-                        </ImageBackground>
-                      </View>
+                      <Image
+                        style={{
+                          width: '100%',
+                          height: '90%',
+                          borderTopRightRadius: 10,
+                          borderTopLeftRadius: 10,
+                        }}
+                        source={{
+                          uri:
+                            'https://res.cloudinary.com/smarty123/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1585897914/' +
+                            product.imgUrl,
+                        }}
+                      />
+                      <Text
+                        style={{
+                          backgroundColor: '#000000',
+                          color: '#fff',
+                          fontWeight: 'bold',
+                          fontSize: 16,
+                          textAlign: 'center',
+                          paddingHorizontal: 10,
+                          borderBottomLeftRadius: 10,
+                          borderBottomRightRadius: 10,
+                          paddingVertical: 1,
+                        }}>
+                        {product.title}
+                      </Text>
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -130,10 +136,10 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   card: {
-    height: 150,
+    height: 200,
     marginBottom: 10,
-    width: '96%',
-    marginLeft: '2%',
+    width: '98%',
+    marginLeft: '1%',
     borderRadius: 10,
     backgroundColor: '#f2f2f2',
   },
