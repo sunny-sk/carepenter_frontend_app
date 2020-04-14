@@ -16,14 +16,13 @@ import {useDispatch} from 'react-redux';
 
 const CategoryTypeScreen = (props) => {
   const [products, setProducts] = useState([]);
-  const [category, setCategory] = useState('');
   const [title, setTitle] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     setTitle(props.route.params.data.name);
-    setCategory(props.route.params.data.name);
+
     console.log(props.route.params.data.name);
     loadCategoryProducts(props.route.params.data.name);
   }, [props.navigation]);
@@ -31,17 +30,12 @@ const CategoryTypeScreen = (props) => {
   const loadCategoryProducts = async (data) => {
     try {
       setIsLoading(true);
-
       const result = await dispatch(getAllProductsByCategory(data));
       setProducts([...result.products]);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
     }
-  };
-
-  const loadMore = () => {
-    console.log('load more clicked');
   };
 
   // useEffect(() => {
@@ -56,74 +50,82 @@ const CategoryTypeScreen = (props) => {
 
   props.navigation.setOptions({
     title: title,
-    headerRight: () => {
-      return (
-        <View style={{marginRight: 15}}>
-          {isLoading ? <ActivityIndicator size="small" color="#ffff" /> : null}
-        </View>
-      );
-    },
+    // headerRight: () => {
+    //   return (
+    //     <View style={{marginRight: 15}}>
+    //       {isLoading ? <ActivityIndicator size="small" color="#ffff" /> : null}
+    //     </View>
+    //   );
+    // },
   });
 
   return (
     <>
       <View style={styles.screen}>
-        <View style={{marginTop: 20, backgroundColor: '#fff'}}>
-          <ScrollView>
-            {products.map((product, index) => {
-              return (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => {
-                    console.log('perticular category product clicked');
-                    props.navigation.navigate('detail', {data: product});
-                  }}>
-                  <View style={styles.card}>
-                    <View style={{height: '100%'}}>
-                      <Image
-                        style={{
-                          width: '100%',
-                          height: '90%',
-                          borderTopRightRadius: 10,
-                          borderTopLeftRadius: 10,
-                        }}
-                        source={{
-                          uri:
-                            'https://res.cloudinary.com/smarty123/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1585897914/' +
-                            product.imgUrl,
-                        }}
-                      />
-                      <Text
-                        style={{
-                          backgroundColor: '#000000',
-                          color: '#fff',
-                          fontWeight: 'bold',
-                          fontSize: 16,
-                          textAlign: 'center',
-                          paddingHorizontal: 10,
-                          borderBottomLeftRadius: 10,
-                          borderBottomRightRadius: 10,
-                          paddingVertical: 1,
-                        }}>
-                        {product.title}
-                      </Text>
+        {isLoading ? (
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={{textAlign: 'center'}}>Please wait ...</Text>
+            <ActivityIndicator size="small" color={Colors.primary} />
+          </View>
+        ) : (
+          <View style={{marginTop: 10, backgroundColor: '#fff'}}>
+            <ScrollView>
+              {products.map((product, index) => {
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                      console.log('perticular category product clicked');
+                      props.navigation.navigate('detail', {data: product});
+                    }}>
+                    <View style={styles.card}>
+                      <View style={{height: '100%'}}>
+                        <Image
+                          style={{
+                            width: '100%',
+                            height: '90%',
+                            borderTopRightRadius: 10,
+                            borderTopLeftRadius: 10,
+                          }}
+                          source={{
+                            uri:
+                              'https://res.cloudinary.com/smarty123/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1585897914/' +
+                              product.imgUrl,
+                          }}
+                        />
+                        <Text
+                          style={{
+                            backgroundColor: '#000000',
+                            color: '#fff',
+                            fontWeight: 'bold',
+                            fontSize: 16,
+                            textAlign: 'center',
+                            paddingHorizontal: 10,
+                            borderBottomLeftRadius: 10,
+                            borderBottomRightRadius: 10,
+                            paddingVertical: 1,
+                          }}>
+                          {product.title}
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+                  </TouchableOpacity>
+                );
+              })}
 
-            <View style={styles.lastCard}>
-              <TouchableOpacity
+              <View style={styles.lastCard}>
+                {/* <TouchableOpacity
                 onPress={() => {
                   loadMore();
                 }}>
                 <Text style={{textAlign: 'center'}}>more click here</Text>
               </TouchableOpacity>
-              <ActivityIndicator size="small" color={Colors.primary} />
-            </View>
-          </ScrollView>
-        </View>
+              <ActivityIndicator size="small" color={Colors.primary} /> */}
+              </View>
+            </ScrollView>
+          </View>
+        )}
       </View>
     </>
   );

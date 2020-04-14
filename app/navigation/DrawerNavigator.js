@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SplashScreen from 'react-native-splash-screen';
@@ -33,6 +33,12 @@ function CustomDrawerContent(props) {
             style={{height: 80, width: 80}}
             source={require('./../../assets/images/user.png')}
           />
+          <TouchableOpacity
+            onPress={() => {
+              props.navigation.navigate('auth');
+            }}>
+            <Text>Login</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View>

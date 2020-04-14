@@ -13,6 +13,7 @@ import DetailScreen from '../../screens/DetailScreen';
 import TabNavigator from './TabScreen';
 import ContactScreen from '../../screens/ContactScreen';
 import CategoryTypeScreen from '../../screens/CategoryTypeScreen';
+import AuthScreen from '../../screens/AuthScreen';
 
 const stack = createStackNavigator();
 
@@ -91,6 +92,19 @@ export function mainStackScreen() {
         component={CategoriesScreen}
         options={{headerShown: false}}
       /> */}
+      <stack.Screen
+        name="auth"
+        component={AuthScreen}
+        options={{
+          title: 'Auth',
+          headerStyle: {
+            backgroundColor: Colors.primary,
+          },
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center', // make header title on center,
+          headerShown: false,
+        }}
+      />
       <stack.Screen
         name="categories"
         component={CategoriesScreen}

@@ -31,6 +31,7 @@ const DetailScreen = (props) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [productData, setProductData] = useState({});
+  const [allImages, setAllImagesLink] = useState([]);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -170,7 +171,7 @@ const DetailScreen = (props) => {
             <Text style={styles.desHeading}>Description</Text>
             <View
               style={{
-                marginTop: 5,
+                marginVertical: 10,
                 width: '96%',
                 marginLeft: '2%',
               }}>
@@ -180,7 +181,14 @@ const DetailScreen = (props) => {
             <View style={styles.divider}></View>
             {/* comments */}
             {comments.length === 0 ? (
-              <Text>No commnets</Text>
+              <View style={{marginTop: '20%'}}>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                  }}>
+                  No commnets
+                </Text>
+              </View>
             ) : (
               <Comments comments={comments} />
             )}
@@ -200,7 +208,11 @@ const DetailScreen = (props) => {
               {isLoading ? (
                 <ActivityIndicator size="small" color="black" />
               ) : (
-                <TouchableOpacity onPress={onComment}>
+                // <TouchableOpacity onPress={onComment}>
+                <TouchableOpacity
+                  onPress={() => {
+                    props.navigation.navigate('auth');
+                  }}>
                   <Ionicons name="md-send" color={Colors.primary} size={24} />
                 </TouchableOpacity>
               )}
